@@ -7,9 +7,10 @@ var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var api = require('./routes/api');
 
 var app = express();
+require('dotenv').load();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,9 +29,15 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/jquery', express.static(path.join(__dirname, "node_modules/jquery/dist")));
+app.use('/materialize', express.static(path.join(__dirname, "node_modules/materialize-css/dist")));
+app.use('/jquery-match-height', express.static(path.join(__dirname, "node_modules/jquery-match-height/dist")));
+app.use('/common', express.static(path.join(__dirname, "src/util")));
+app.use('/stock', express.static(path.join(__dirname, "src/stock/infrastructure/client")));
+app.use('/chartjs', express.static(path.join(__dirname, "node_modules/chart.js/dist")));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

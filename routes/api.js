@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var container = require('../config/container');
 
-/* GET home page. */
-router.get('/', container.HomePage());
+router.route('/companies')
+  .get(container.HistoricalData())
+  .post(container.AddCompany());
 
 module.exports = router;

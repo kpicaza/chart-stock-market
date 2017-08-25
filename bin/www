@@ -6,7 +6,8 @@
 
 var app = require('../app');
 var debug = require('debug')('chart-the-stock-market:server');
-var http = require('https');
+var http = require('http');
+var WsServer = require('../config/web-socket');
 
 /**
  * Get port from environment and store in Express.
@@ -28,6 +29,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+new WsServer(server);
 
 /**
  * Normalize a port into a number, string, or false.
