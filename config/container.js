@@ -5,6 +5,7 @@ var companyGateway = require('../src/stock/infrastructure/mongo/company-store');
 var HomePage = require('../src/stock/application/action/home-page');
 var HistoricalData = require('../src/stock/application/action/historical-data');
 var AddCompany = require('../src/stock/application/action/add-company');
+var RemoveCompany = require('../src/stock/application/action/remove-company');
 
 var container = {
 
@@ -42,6 +43,12 @@ var container = {
     var addCompany = new AddCompany(this.CompanyRepository());
 
     return addCompany.action;
+  },
+
+  RemoveCompany: function () {
+    var removeCompany = new RemoveCompany(this.CompanyRepository());
+
+    return removeCompany.action;
   }
 
 };

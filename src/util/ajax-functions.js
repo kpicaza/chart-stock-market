@@ -1,6 +1,8 @@
 'use strict';
 
 var appUrl = window.location.origin;
+var ws = new WebSocket('ws://localhost:8080', 'echo-protocol');
+
 var ajaxFunctions = {
   ready: function ready(fn) {
     if (typeof fn !== 'function') {

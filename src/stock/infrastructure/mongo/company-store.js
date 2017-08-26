@@ -76,6 +76,19 @@ function Store(db) {
       });
     });
 
-  }
-  
+  };
+
+  this.remove = function (id) {
+    return new Promise(function (resolve, reject) {
+
+      collection.remove({id: id}, function (err) {
+        if (err) {
+          return reject(err);
+        }
+
+        resolve();
+      });
+    });
+  };
+
 }

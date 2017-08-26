@@ -1,11 +1,8 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
-
-a {
-  color: #00B7FF; }
-
 .margin-top-10 {
   margin-top: 10px; }
+
+.card-action a span {
+  position: relative;
+  top: -7px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,7 +1,8 @@
 (function () {
 
   var apiUrl = appUrl + '/api/companies';
-  var ctx = document.getElementById('chart').getContext('2d');
+  var canvas = document.getElementById('chart');
+  var ctx = canvas.getContext('2d');
   var main = $('#main');
 
   var requestData = function () {
@@ -22,8 +23,7 @@
         fill: false,
         label: symbol,
         data: data.historical[symbol].reverse().map(function (item) {
-          console.log(item);
-          return item.close
+          return item.close.toFixed(2);
         })
       };
     });
@@ -38,12 +38,10 @@
 
   };
 
-  ajaxFunctions.ready(function () {
-    requestData();
-  });
+  ajaxFunctions.ready(requestData);
 
-  main.bind('CompanyWasAdded', function () {
-    requestData();
-  });
+  main.bind('CompanyWasAdded', requestData);
+
+  main.bind('CompanyWasRemoved', requestData);
 
 })();

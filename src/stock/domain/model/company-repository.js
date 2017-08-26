@@ -39,8 +39,6 @@ function CompanyRepository(gateway, client, emitter) {
     var end = new Date()
     end = end.toISOString();
 
-    console.log(symbols, start, end);
-
     return new Promise(function (resolve, reject) {
       client.findHistoricalForSymbols(symbols, start, end)
         .then(function (data) {
@@ -101,6 +99,17 @@ function CompanyRepository(gateway, client, emitter) {
       }).catch(error);
     });
 
+  };
+
+  this.remove = function (id) {
+
+    return new Promise(function (resolve, reject) {
+      gateway(id, 'remove').then(function () {
+        resolve();
+      }).catch(function (e) {
+        reject(e);
+      });
+    });
 
   };
 

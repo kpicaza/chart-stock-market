@@ -1,6 +1,5 @@
 (function () {
 
-  var ws = new WebSocket('ws://localhost:8080', 'echo-protocol');
   var apiUrl = appUrl + '/api/companies';
   var running = false;
   var main = $('#main');
@@ -12,6 +11,7 @@
   var equalDivs = $('.card-content');
 
   var sendMessage = function(data){
+    data.type = 'add-company';
     var message = JSON.stringify(data);
     ws.send(message);
   };
@@ -22,11 +22,22 @@
       card = card.last().clone();
     }
 
+    var andCurrency = ' ' + company.info.currency + ' ';
+
     card.find('.card-title').text(company.info.name);
     card.removeClass('hide');
+    card.find('.current-price').text(company.info.currentPrice + andCurrency);
+    card.find('.closing-price').text(company.info.preClosePrice + andCurrency);
+    card.find('.delete-company').data('id', company.id);
+    if (company.info.currentPrice < company.info.preClosePrice) {
+      card.find('.trend-up').hide();
+    } else {
+      card.find('.trend-down').hide();
+    }
+
     chartCompanies.prepend(card);
     equalDivs = $('.card-content');
-    equalDivs.matchHeight();
+    // equalDivs.matchHeight();
     running = false;
   };
 
@@ -57,10 +68,13 @@
 
   ws.addEventListener("message", function(e) {
     // The data is simply the message that we're sending back
-    var msg = e.data;
+    var msg = JSON.parse(e.data);
 
-    drawCard(JSON.parse(msg));
-    main.trigger('CompanyWasAdded');
+    if ('add-company' === msg.type) {
+      drawCard(msg);
+      main.trigger('CompanyWasAdded');
+    }
+
   });
 
 
