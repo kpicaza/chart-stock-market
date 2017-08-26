@@ -18,3 +18,5 @@ html
     script(type="text/javascript" src="/jquery-match-height/jquery.matchHeight-min.js")
     script(type="text/javascript" src="/materialize/js/materialize.min.js")
     script(type="text/javascript" src="/common/ajax-functions.js")
+    - var js = 'var ws = new WebSocket(\'' + socket + '\', \'echo-protocol\');'
+    script(type="text/javascript")= js

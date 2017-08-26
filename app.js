@@ -8,6 +8,7 @@ var sassMiddleware = require('node-sass-middleware');
 
 var index = require('./routes/index');
 var api = require('./routes/api');
+var viewGlobals = require('./config/view-globals');
 
 var app = express();
 require('dotenv').load();
@@ -35,6 +36,7 @@ app.use('/jquery-match-height', express.static(path.join(__dirname, "node_module
 app.use('/common', express.static(path.join(__dirname, "src/util")));
 app.use('/stock', express.static(path.join(__dirname, "src/stock/infrastructure/client")));
 app.use('/chartjs', express.static(path.join(__dirname, "node_modules/chart.js/dist")));
+app.use(viewGlobals);
 
 app.use('/', index);
 app.use('/api', api);
